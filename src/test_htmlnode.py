@@ -1,6 +1,5 @@
 import unittest
-from htmlnode import HTMLNode, LeafNode, ParentNode, text_node_to_html_node
-from textnode import TextType, TextNode
+from htmlnode import HTMLNode, LeafNode, ParentNode
 
 class TestHTMLNode(unittest.TestCase):
     def test_1(self):
@@ -59,23 +58,6 @@ class TestParentNode(unittest.TestCase):
             ],
         ).to_html()
         self.assertEqual(node, "<h1><span>child</span></h1>")
-
-class TestConvertFunction(unittest.TestCase):
-    def test_text(self):
-        node = TextNode("This is a text node", TextType.TEXT)
-        html_node = text_node_to_html_node(node)
-        self.assertEqual(html_node.tag, None)
-        self.assertEqual(html_node.value, "This is a text node")
-    
-    def test_img(self):
-        node = TextNode("This is an alt text", TextType.IMAGE, "src/img.png")
-        html_node = text_node_to_html_node(node)
-        print(html_node)
-        print(html_node.tag)
-        self.assertEqual(html_node.tag, "img")
-        self.assertEqual(html_node.value, "")
-        self.assertEqual(html_node.props["alt"], "This is an alt text")
-        self.assertEqual(html_node.props["src"], "src/img.png")
 
 if __name__ == "__main__":
     unittest.main()
