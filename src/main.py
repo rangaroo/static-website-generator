@@ -1,7 +1,6 @@
-from textnode import TextNode, TextType
+from copy_static import generate_public
 
 def main():
-    dummy = TextNode("This is some anchor text", TextType.LINK, "https://www.boot.dev")
-    print(dummy)
+    generate_public()
 
 main()
