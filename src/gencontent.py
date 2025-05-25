@@ -13,7 +13,7 @@ def generate_pages_recursive(dir_path_content, template_path, dest_dir_path, bas
         new_source_path = os.path.join(dir_path_content, item)
         if os.path.isfile(new_source_path) and os.path.splitext(new_source_path)[-1] == ".md":
             print(f"{item} is a file. Generating a html and copying it to {dest_dir_path} folder")
-            generate_page(new_source_path, template_path, os.path.join(dest_dir_path, "index.html"))
+            generate_page(new_source_path, template_path, os.path.join(dest_dir_path, "index.html"), basepath)
             print(f"File {item[:-2]}html is generated inside {dest_dir_path}")
         if os.path.isdir(new_source_path):
             print(f"{item} is a directory. Creating a new directory inside {dest_dir_path} folder")
@@ -26,7 +26,7 @@ def generate_pages_recursive(dir_path_content, template_path, dest_dir_path, bas
             os.mkdir(f"{new_destination_path}")
             print(f"Subdirectory {item} is created in {dest_dir_path}")
             print("******************************")
-            generate_pages_recursive(new_source_path, template_path, new_destination_path)
+            generate_pages_recursive(new_source_path, template_path, new_destination_path, basepath)
         print("__________________________________")
 
 def generate_page(from_path, template_path, dest_path, basepath="/"):
