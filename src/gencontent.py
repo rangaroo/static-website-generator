@@ -1,7 +1,7 @@
 import os
 from block_markdown import markdown_to_html_node
 
-def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
+def generate_pages_recursive(dir_path_content, template_path, dest_dir_path, basepath="/"):
     source_exists = os.path.exists(f"{dir_path_content}")
     if not source_exists:
         raise Exception("can't access source directory or it does not exist")
@@ -29,7 +29,7 @@ def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
             generate_pages_recursive(new_source_path, template_path, new_destination_path)
         print("__________________________________")
 
-def generate_page(from_path, template_path, dest_path):
+def generate_page(from_path, template_path, dest_path, basepath="/"):
     print(f"Generating page from {from_path} to {dest_path} using {template_path}")
 
     with open(from_path) as markdown_file:
@@ -43,6 +43,8 @@ def generate_page(from_path, template_path, dest_path):
 
     result = template_html.replace("{{ Title }}", title)
     result = result.replace("{{ Content }}", html)
+    result = result.replace('href="/', f'href="{basepath}')
+    result = result.replace('src"/', f'src="{basepath}')
 
     dest_dir_path = os.path.dirname(dest_path)
     if dest_dir_path != "":
